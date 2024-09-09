@@ -1,8 +1,28 @@
+import code
+
 import requests
 import json
 import pprint
 from tkinter import messagebox as mb, Label
 
+
+def exchange():
+    cоde =entry.get() # вводит что ввел потребитель
+
+    if  code:
+        try:
+            response = requests.get("https://open.er-api.com/v6/latest/USD") # потом ввести код Дениса Голикова
+            response.raise_for_status() # работа с исключениями
+            data = response.json()
+            if code in data ["rates"]:
+                exchange_rate = data['rates'][code]
+                mb.showinfo("Курс обмена"), (f"Курс:{exchange_rate}{code} за 1 доллар")
+            else:
+                mb.showerror("Ошибка!", f"Валюта{code} не найдена!")
+        except Exception as e:
+            mb.showerror("Ошибка",  f"Произошла ошибка: {e}")
+    else:
+        mb.showwarning ("Внимание", f"Введите код валюты")
 
 
 
